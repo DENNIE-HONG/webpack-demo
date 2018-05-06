@@ -1,15 +1,17 @@
 const path = require('path');
-
 module.exports = {
-  entry: './src/views/home/home.js',
+  entry: {
+    'home':'./src/views/home/home.js'
+  },
   output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist')
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: '../src/views/home/home.html',
     host: 'localhost',
     port: 8000,
     compress: true
-  }
+  },
+  watch: true
 }
