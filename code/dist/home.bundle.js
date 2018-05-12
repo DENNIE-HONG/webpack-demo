@@ -233,7 +233,7 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader!./m
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.scss */ \"./src/views/home/home.scss\");\n/* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_home_scss__WEBPACK_IMPORTED_MODULE_0__);\n__webpack_require__(/*! ../../components/commons */ \"./src/components/commons/index.js\");\r\n\r\ndocument.querySelector('body').innerHTML('test');\r\nconsole.log('新的');\n\n//# sourceURL=webpack:///./src/views/home/home.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.scss */ \"./src/views/home/home.scss\");\n/* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_home_scss__WEBPACK_IMPORTED_MODULE_0__);\n__webpack_require__(/*! ../../components/commons */ \"./src/components/commons/index.js\");\r\n\r\n\r\nconsole.log('开始吧');\n\n//# sourceURL=webpack:///./src/views/home/home.js?");
 
 /***/ }),
 
