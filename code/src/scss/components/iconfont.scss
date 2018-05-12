@@ -1,0 +1,44 @@
+
+@font-face {
+  font-family: "iconfont";
+  src: url('../../fonts/iconfont.eot?'); /* IE9*/
+  src: url('../../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../../fonts/iconfont.woff') format('woff'),
+  url('../../fonts/iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../../fonts/iconfont.svg') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-touzi:before { content: "\e6c1"; }
+
+.icon-piaofang:before { content: "\e600"; }
+
+.icon-rili:before { content: "\e601"; }
+
+.icon-jijianfasong-xianxing:before { content: "\e893"; }
+
+.icon-shouye-xianxing:before { content: "\e8ba"; }
+
+.icon-liaotianduihua-xianxing:before { content: "\e8bd"; }
+
+.icon-xin-xianxing:before { content: "\e8bf"; }
+
+.icon-yonghu-xianxing:before { content: "\e8c8"; }
+
+.icon-bianjishuru-xianxing:before { content: "\e8cc"; }
+
+.icon-tupian-xianxing:before { content: "\e8d2"; }
+
+.icon-jiesuo:before { content: "\e8d5"; }
+
+.icon-gantanhao-yuankuang:before { content: "\e8ec"; }
+
+.icon-xiayiyeqianjinchakangengduo:before { content: "\e8f1"; }
+
