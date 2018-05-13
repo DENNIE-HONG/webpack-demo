@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
   entry: {
     'home':'./src/views/home/home.js'
@@ -16,7 +17,9 @@ module.exports = {
       filename: 'home.html',
       template: './src/views/home/home.html',
       title: 'new webpack'
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
@@ -42,10 +45,11 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: './src/views',
+    contentBase: path.resolve(__dirname, '../dist'),
     host: 'localhost',
     port: 8000,
-    compress: true
+    compress: true,
+    hot: true
   },
   watch: true
 }
