@@ -5,19 +5,26 @@ const webpack = require('webpack');
 module.exports = () => {
   let config = {
     entry: {
-      'home': './src/views/home/home.js',
-      'detail': './src/views/detail/detail.js'
+      home: './src/views/home/home.js',
+      detail: './src/views/detail/detail.js',
+      vendor: ['jquery']
     },
     output: {
-      filename: '[name].bundle.js',
+      filename: '[name].[hash].js',
       path: path.resolve(__dirname, '../dist')
     },
     plugins: [
-      new CleanWebpackPlugin([path.resolve(__dirname, '../dist')]),
+      new CleanWebpackPlugin('dist/*.*', {
+        root: path.resolve(__dirname, '../')
+      }),
     ],
     optimization: {
       splitChunks : {
         cacheGroups: {
+          vendor: {
+            name: 'vendor',
+            chunks: "initial"
+          },
           commons: {
             name: 'common',
             chunks: "initial"
