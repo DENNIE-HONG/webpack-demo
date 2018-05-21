@@ -10,24 +10,22 @@ module.exports = () => {
       vendor: ['jquery']
     },
     output: {
-      filename: '[name].[hash].js',
+      filename: '[name].[chunkhash].js',
       path: path.resolve(__dirname, '../dist')
     },
     plugins: [
       new CleanWebpackPlugin('dist/*.*', {
         root: path.resolve(__dirname, '../')
-      }),
+      })
     ],
     optimization: {
       splitChunks : {
         cacheGroups: {
           vendor: {
             name: 'vendor',
-            chunks: "initial"
           },
           commons: {
             name: 'common',
-            chunks: "initial"
           }
         }
       }
