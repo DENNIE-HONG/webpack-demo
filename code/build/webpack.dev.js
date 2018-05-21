@@ -3,18 +3,24 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 module.exports = merge(common(), {
-  mode: "development",
+  mode: "development", 
   devtool: 'inline-source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, '../dist'),
+    host: 'localhost',
+    port: 7000,
+    compress: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    overlay: true
+  },
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
-  devServer: {
-    contentBase: path.resolve(__dirname, '../dist'),
-    host: 'localhost',
-    port: 8000,
-    compress: true,
-    hot: true
-  },
-  watch: true
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist')
+  }
 });
