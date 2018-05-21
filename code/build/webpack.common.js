@@ -8,28 +8,33 @@ module.exports = () => {
       home: './src/views/home/home.js',
       detail: './src/views/detail/detail.js',
       vendor: ['jquery']
+      
     },
-    output: {
-      filename: '[name].[chunkhash].js',
-      path: path.resolve(__dirname, '../dist')
+    optimization: {
+      splitChunks : {
+        chunks: "initial",
+        cacheGroups: {
+          commons: {
+            minChunks: 2,
+            name: 'commons'
+          },
+          vendors: {
+            test: 'vendor',
+            name: 'vendor',
+            priority: 10,
+            enforce: true
+          },
+        }
+      },
+      runtimeChunk: {
+        name: 'manifest'
+      }
     },
     plugins: [
       new CleanWebpackPlugin('dist/*.*', {
         root: path.resolve(__dirname, '../')
-      })
+      }),
     ],
-    optimization: {
-      splitChunks : {
-        cacheGroups: {
-          vendor: {
-            name: 'vendor',
-          },
-          commons: {
-            name: 'common',
-          }
-        }
-      }
-    },
     module: {
       rules: [
         {
@@ -60,8 +65,10 @@ module.exports = () => {
     let pages = ['home', 'detail'];
     pages.map((page)=>{
       let conf = {
+        chunks: ['manifest', 'vendor', 'commons', page],
         filename: `${page}.html`,
-        template: `./src/views/${page}/${page}.html`
+        template: `./src/views/${page}/${page}.html`,
+        chunksSortMode: 'manual'
       };
       config.plugins.push(new HtmlWebpackPlugin(conf));
     });
