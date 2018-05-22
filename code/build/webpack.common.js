@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-module.exports = () => {
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+module.exports = (env) => {
+  console.log(env.production);
   let config = {
     entry: {
       home: './src/views/home/home.js',
@@ -12,18 +14,21 @@ module.exports = () => {
     },
     optimization: {
       splitChunks : {
-        chunks: "initial",
+        chunks: 'initial',
         cacheGroups: {
           commons: {
+            chunks: 'initial',
             minChunks: 2,
-            name: 'commons'
+            name: 'commons',
+            maxInitialRequests: 5,
+            minSize: 0 
           },
           vendors: {
             test: 'vendor',
             name: 'vendor',
             priority: 10,
             enforce: true
-          },
+          }
         }
       },
       runtimeChunk: {
@@ -31,20 +36,26 @@ module.exports = () => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin('dist/*.*', {
+      new CleanWebpackPlugin(['dist/*.*', 'dist/css/*.*'], {
         root: path.resolve(__dirname, '../')
       }),
       new webpack.ProvidePlugin({
-        $: 'jquery'
-      }),
+        $: 'jQuery',
+        jQuery: 'jQuery'
+      })
     ],
     module: {
       rules: [
         {
+          test: /\.js$/,
+          include: path.resolve(__dirname, '../src'),
+          loader: "babel-loader"
+        },
+        {
           test: /\.(css|scss)$/,
           use: [
-            'style-loader',
-            'css-loader'
+            env.production? MiniCssExtractPlugin.loader: 'style-loader',
+            "css-loader"
           ]
         },
         {

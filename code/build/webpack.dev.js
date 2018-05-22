@@ -2,9 +2,10 @@ const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = env => {
   console.log('Environment Variables: ', env.production);
-  return merge(common(), {
+  return merge(common(env), {
     mode: "development", 
     devtool: 'inline-source-map',
     devServer: {
@@ -19,7 +20,10 @@ module.exports = env => {
     },
     plugins: [
       new webpack.NamedModulesPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].css'
+      })
     ],
     output: {
       filename: '[name].bundle.js',
