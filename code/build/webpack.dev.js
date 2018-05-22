@@ -4,10 +4,9 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = env => {
-  console.log('Environment Variables: ', env.production);
   return merge(common(env), {
     mode: "development", 
-    devtool: 'inline-source-map',
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
       contentBase: path.resolve(__dirname, '../dist'),
       host: 'localhost',
@@ -19,14 +18,14 @@ module.exports = env => {
       overlay: true
     },
     plugins: [
-      new webpack.NamedModulesPlugin(),
+      // new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css'
       })
     ],
     output: {
-      filename: '[name].bundle.js',
+      filename: 'js/[name].bundle.js',
       path: path.resolve(__dirname, '../dist')
     }
   });

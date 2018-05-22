@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = (env) => {
-  console.log(env.production);
   let config = {
     entry: {
       home: './src/views/home/home.js',
@@ -36,12 +35,12 @@ module.exports = (env) => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin(['dist/*.*', 'dist/css/*.*'], {
+      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*'], {
         root: path.resolve(__dirname, '../')
       }),
       new webpack.ProvidePlugin({
-        $: 'jQuery',
-        jQuery: 'jQuery'
+        $: 'jquery',
+        jQuery: 'jquery'
       })
     ],
     module: {

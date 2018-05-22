@@ -4,19 +4,30 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const common = require('./webpack.common.js');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = env => {
   return merge(common(env), {
+    mode: 'production',
     output: {
-      filename: '[name].[chunkhash].js',
+      filename: 'js/[name].[chunkhash].js',
       path: path.resolve(__dirname, '../dist')
     },
+    optimization: {
+      minimizer: [
+        new UglifyJSPlugin({
+          cache: true,
+          parallel: true
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
     plugins: [
-      new UglifyJSPlugin(),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[hash].css'
+        filename: 'css/[name].[hash].css',
+        chunkFilename: "css/[contenthash:12].css"
       })
     ]
   });
