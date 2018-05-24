@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 module.exports = (env) => {
   let config = {
     entry: {
@@ -53,7 +54,7 @@ module.exports = (env) => {
         {
           test: /\.(css|scss)$/,
           use: [
-            env.production? MiniCssExtractPlugin.loader: 'style-loader',
+            MiniCssExtractPlugin.loader,
             "css-loader"
           ]
         },
@@ -73,6 +74,7 @@ module.exports = (env) => {
     }
   };
   moreWebpackPlugin();
+  config.plugins.push(new HtmlWebpackHarddiskPlugin());
   return config;
   function moreWebpackPlugin () {
     let pages = ['home', 'detail'];
@@ -81,7 +83,8 @@ module.exports = (env) => {
         chunks: ['manifest', 'vendor', 'commons', page],
         filename: `${page}.html`,
         template: `./src/views/${page}/${page}.html`,
-        chunksSortMode: 'manual'
+        chunksSortMode: 'manual',
+        alwaysWriteToDisk: true
       };
       config.plugins.push(new HtmlWebpackPlugin(conf));
     });

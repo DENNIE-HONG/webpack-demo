@@ -8,10 +8,6 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = env => {
   return merge(common(env), {
     mode: 'production',
-    output: {
-      filename: 'js/[name].[chunkhash].js',
-      path: path.resolve(__dirname, '../dist')
-    },
     optimization: {
       minimizer: [
         new UglifyJSPlugin({
@@ -26,9 +22,13 @@ module.exports = env => {
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[hash].css',
-        chunkFilename: "css/[contenthash:12].css"
+        filename: 'css/[name].[contenthash:12].css',
+        chunkFilename: 'css/[name].[contenthash:12].css'
       })
-    ]
+    ],
+    output: {
+      filename: 'js/[name].[chunkhash].js',
+      path: path.resolve(__dirname, '../dist')
+    }
   });
 }
