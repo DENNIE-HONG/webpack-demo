@@ -19,9 +19,7 @@ module.exports = (env) => {
           commons: {
             chunks: 'initial',
             minChunks: 2,
-            name: 'commons',
-            maxInitialRequests: 5,
-            minSize: 0 
+            name: 'commons'
           },
           vendors: {
             test: 'vendor',

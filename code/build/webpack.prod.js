@@ -24,7 +24,8 @@ module.exports = env => {
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:12].css',
         chunkFilename: 'css/[name].[contenthash:12].css'
-      })
+      }),
+      new webpack.HashedModuleIdsPlugin()
     ],
     output: {
       filename: 'js/[name].[chunkhash].js',

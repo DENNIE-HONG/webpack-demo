@@ -18,7 +18,6 @@ module.exports = env => {
       overlay: true
     },
     plugins: [
-      // new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css'
