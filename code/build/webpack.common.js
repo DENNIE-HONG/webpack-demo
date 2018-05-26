@@ -9,8 +9,7 @@ module.exports = (env) => {
   let config = {
     entry: {
       home: './src/views/home/home.js',
-      detail: './src/views/detail/detail.js',
-      vendor: ['jquery']
+      detail: './src/views/detail/detail.js'
       
     },
     resolve: {
@@ -18,18 +17,18 @@ module.exports = (env) => {
     },
     optimization: {
       splitChunks : {
-        chunks: 'initial',
         cacheGroups: {
-          commons: {
-            chunks: 'initial',
-            minChunks: 2,
-            name: 'commons'
+          default: false,
+          a: {
+            name: "common",
+            chunks: "initial",
+            minChunks: 2
           },
-          vendors: {
-            test: 'vendor',
+          b: {
+            test: /jquery/,
             name: 'vendor',
             priority: 10,
-            enforce: true
+            chunks: 'all'
           }
         }
       },
@@ -74,9 +73,15 @@ module.exports = (env) => {
           ]
         },
         {
-          test: /\.(woff|woff2|eot|ttf|otf)$/,
+          test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
           use: [
-            'file-loader'
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 2048,
+                name: env.production ? 'fonts/[name].[hash:7].[ext]' : 'fonts/[name].[ext]'
+              }
+            }
           ]
         }
       ]
@@ -90,7 +95,7 @@ module.exports = (env) => {
     pages.map((filepath)=>{
       let fileName = path.basename(filepath, '.html');
       let conf = {
-        chunks: ['manifest', 'vendor', 'commons', fileName],
+        chunks: ['manifest', 'vendor', 'common', fileName],
         filename: `${fileName}.html`,
         template: `./src/views/${fileName}/${fileName}.html`,
         chunksSortMode: 'manual',
