@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const glob = require('glob');
 module.exports = (env) => {
   let config = {
     entry: {
@@ -11,6 +12,9 @@ module.exports = (env) => {
       detail: './src/views/detail/detail.js',
       vendor: ['jquery']
       
+    },
+    resolve: {
+      extensions: ['.js', '.scss', '.json']
     },
     optimization: {
       splitChunks : {
@@ -47,19 +51,26 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           include: path.resolve(__dirname, '../src'),
-          loader: "babel-loader"
+          loader: "babel-loader",
+          exclude: /node_modules/
         },
         {
           test: /\.(css|scss)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            "css-loader"
+            "css-loader",
+            "sass-loader"
           ]
         },
         {
           test: /\.(png|svg|jpg|gif)$/,
           use: [
-            'file-loader'
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192
+              }
+            }
           ]
         },
         {
@@ -75,12 +86,13 @@ module.exports = (env) => {
   config.plugins.push(new HtmlWebpackHarddiskPlugin());
   return config;
   function moreWebpackPlugin () {
-    let pages = ['home', 'detail'];
-    pages.map((page)=>{
+    let pages = glob.sync('src/views/**/*.html');
+    pages.map((filepath)=>{
+      let fileName = path.basename(filepath, '.html');
       let conf = {
-        chunks: ['manifest', 'vendor', 'commons', page],
-        filename: `${page}.html`,
-        template: `./src/views/${page}/${page}.html`,
+        chunks: ['manifest', 'vendor', 'commons', fileName],
+        filename: `${fileName}.html`,
+        template: `./src/views/${fileName}/${fileName}.html`,
         chunksSortMode: 'manual',
         alwaysWriteToDisk: true
       };

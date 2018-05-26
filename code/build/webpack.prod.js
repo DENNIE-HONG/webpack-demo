@@ -12,7 +12,12 @@ module.exports = env => {
       minimizer: [
         new UglifyJSPlugin({
           cache: true,
-          parallel: true
+          parallel: true,
+          uglifyOptions: {
+            compress: {
+              drop_console: true
+            }
+          }
         }),
         new OptimizeCSSAssetsPlugin({})
       ]
@@ -22,13 +27,13 @@ module.exports = env => {
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[contenthash:12].css',
-        chunkFilename: 'css/[name].[contenthash:12].css'
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css'
       }),
       new webpack.HashedModuleIdsPlugin()
     ],
     output: {
-      filename: 'js/[name].[chunkhash].js',
+      filename: 'js/[name].[chunkhash:8].js',
       path: path.resolve(__dirname, '../dist')
     }
   });

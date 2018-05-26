@@ -24,7 +24,7 @@ module.exports = env => {
       })
     ],
     output: {
-      filename: 'js/[name].bundle.js',
+      filename: 'js/[name].js',
       path: path.resolve(__dirname, '../dist')
     }
   });
