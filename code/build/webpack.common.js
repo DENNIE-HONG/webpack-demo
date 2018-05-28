@@ -16,9 +16,8 @@ module.exports = (env) => {
     entry: entries,
     resolve: {
       alias: {
-        '@': resolve('src'),
-        scss: resolve('src/scss'),
-        coms: resolve('src/components')
+        scss: path.resolve(__dirname, '../src/scss'),
+        coms: path.resolve(__dirname, '../src/components')
       }
     },
     optimization: {
@@ -104,7 +103,7 @@ module.exports = (env) => {
     pages.map((filepath)=>{
       let fileName = path.basename(filepath, '.html');
       let conf = {
-        chunks: ['manifest', 'alls', 'vendor', fileName],
+        chunks: ['manifest', 'common', 'vendor', fileName],
         filename: `${fileName}.html`,
         template: `./src/views/${fileName}/${fileName}.html`,
         chunksSortMode: 'manual',
