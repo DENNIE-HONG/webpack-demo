@@ -15,7 +15,11 @@ module.exports = (env) => {
   let config = {
     entry: entries,
     resolve: {
-      extensions: ['.js', '.scss', '.json']
+      alias: {
+        '@': resolve('src'),
+        scss: resolve('src/scss'),
+        coms: resolve('src/components')
+      }
     },
     optimization: {
       splitChunks : {
