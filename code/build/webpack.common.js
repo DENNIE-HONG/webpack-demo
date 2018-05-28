@@ -22,8 +22,8 @@ module.exports = (env) => {
         cacheGroups: {
           default: false,
           common: {
-            name: "common",
-            chunks: "initial",
+            name: 'common',
+            chunks: 'initial',
             minChunks: 2,
             maxInitialRequests: 5,
             minSize: 2
