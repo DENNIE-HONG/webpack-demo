@@ -6,12 +6,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const glob = require('glob');
 module.exports = (env) => {
+  let entryFiles = glob.sync('src/views/**/*.js');
+  let entries = {};
+  entryFiles.forEach(file => {
+    let name = path.basename(file, '.js');
+    entries[name] = './' + file;
+  });
   let config = {
-    entry: {
-      home: './src/views/home/home.js',
-      detail: './src/views/detail/detail.js'
-      
-    },
+    entry: entries,
     resolve: {
       extensions: ['.js', '.scss', '.json']
     },
@@ -19,16 +21,19 @@ module.exports = (env) => {
       splitChunks : {
         cacheGroups: {
           default: false,
-          a: {
+          common: {
             name: "common",
             chunks: "initial",
-            minChunks: 2
+            minChunks: 2,
+            maxInitialRequests: 5,
+            minSize: 2
           },
-          b: {
+          vendor: {
             test: /jquery/,
-            name: 'vendor',
+            name: 'vondor',
             priority: 10,
-            chunks: 'all'
+            chunks: 'initial',
+            enforce: true,
           }
         }
       },
@@ -95,7 +100,7 @@ module.exports = (env) => {
     pages.map((filepath)=>{
       let fileName = path.basename(filepath, '.html');
       let conf = {
-        chunks: ['manifest', 'vendor', 'common', fileName],
+        chunks: ['manifest', 'alls', 'vendor', fileName],
         filename: `${fileName}.html`,
         template: `./src/views/${fileName}/${fileName}.html`,
         chunksSortMode: 'manual',
