@@ -12,10 +12,13 @@ module.exports = env => {
       minimizer: [
         new UglifyJSPlugin({
           cache: true,
-          parallel: true,
+          parallel: true,        
           uglifyOptions: {
             compress: {
               drop_console: true
+            },
+            output: {
+              comments: false
             }
           }
         }),
