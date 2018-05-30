@@ -91,6 +91,14 @@ module.exports = (env) => {
               }
             }
           ]
+        },
+        {
+          test: /\.art$/,
+          use: [
+            {
+              loader: 'art-template-loader'
+            }
+          ]
         }
       ]
     }
