@@ -1,4 +1,7 @@
 require('../../components/commons');
 import { tip } from '../../components/alertTip';
-//我是注释来吧
-tip('什么情况啊啊啊啊啊');
+
+$(function(){
+  //我是注释来吧
+  tip('什么情况啊啊啊啊啊');
+});

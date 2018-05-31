@@ -5,8 +5,8 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = env => {
   return merge(common(env), {
-    mode: "development", 
-    devtool: 'cheap-module-eval-source-map',
+    mode: 'development', 
+    devtool: 'inline-source-map',
     devServer: {
       contentBase: path.resolve(__dirname, '../dist'),
       host: 'localhost',
@@ -27,6 +27,7 @@ module.exports = env => {
       filename: 'js/[name].js',
       path: path.resolve(__dirname, '../dist'),
       publicPath: '/',
-    }
+    },
+    watch: true
   });
 }

@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WriteFilePlugin = require('write-file-webpack-plugin');
 const glob = require('glob');
 module.exports = (env) => {
   let entryFiles = glob.sync('src/views/**/*.js');
@@ -27,13 +29,11 @@ module.exports = (env) => {
           common: {
             name: 'common',
             chunks: 'initial',
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 2
+            minChunks: 2
           },
           vendor: {
             test: /jquery/,
-            name: 'vondor',
+            name: 'vendor',
             priority: 10,
             chunks: 'initial',
             enforce: true,
@@ -45,13 +45,23 @@ module.exports = (env) => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*'], {
+      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', 'dist/coms/*.*'], {
         root: path.resolve(__dirname, '../')
       }),
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery'
-      })
+      }),
+      new WriteFilePlugin({
+        test: /\.art$/
+      }),
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, '../src/components/**/*.art'),
+          to: path.resolve(__dirname, '../dist/coms'),
+          flatten: true
+        }
+      ])
     ],
     module: {
       rules: [
