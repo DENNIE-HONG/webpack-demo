@@ -109,6 +109,17 @@ module.exports = (env) => {
               loader: 'art-template-loader'
             }
           ]
+        },
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                removeComments: false
+              }
+            }
+          ]
         }
       ]
     }
