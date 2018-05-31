@@ -13,12 +13,13 @@ const router = new Router();
 const log = console.log;
 //模板设置
 render(app, {
-  root: __dirname + '/code/dist',
+  root: __dirname + '/views',
   extname: '.art',
   debug: process.env.NODE_ENV !== 'production'
 });
 //静态资源
 app.use(serve('/', __dirname + '/code/dist'));
+//路由
 router.get('/detail', (ctx, next) => {
   ctx.render('detail.html');
 });

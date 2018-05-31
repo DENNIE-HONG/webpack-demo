@@ -45,7 +45,7 @@ module.exports = (env) => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', 'dist/coms/*.*'], {
+      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', '../views'], {
         root: path.resolve(__dirname, '../')
       }),
       new webpack.ProvidePlugin({
@@ -58,7 +58,7 @@ module.exports = (env) => {
       new CopyWebpackPlugin([
         {
           from: path.resolve(__dirname, '../src/components/**/*.art'),
-          to: path.resolve(__dirname, '../dist/coms'),
+          to: path.resolve(__dirname, '../../views/coms'),
           flatten: true
         }
       ])
@@ -133,7 +133,7 @@ module.exports = (env) => {
       let fileName = path.basename(filepath, '.html');
       let conf = {
         chunks: ['manifest', 'common', 'vendor', fileName],
-        filename: `${fileName}.html`,
+        filename: path.resolve(__dirname, `../../views/${fileName}.html`),
         template: `./src/views/${fileName}/${fileName}.html`,
         chunksSortMode: 'manual',
         alwaysWriteToDisk: true
