@@ -11,19 +11,19 @@ const serve = require('koa-static2')
 const app = new Koa();
 const router = new Router();
 const log = console.log;
+
+const detail = require('./routes/detail');
 //模板设置
 render(app, {
   root: __dirname + '/views',
   extname: '.art',
   debug: process.env.NODE_ENV !== 'production'
 });
-//静态资源
-app.use(serve('/', __dirname + '/code/dist'));
+
 //路由
-router.get('/detail', (ctx, next) => {
-  ctx.render('detail.html');
-});
-app.use(router.routes())
+router.get('/detail', detail);
+app.use(serve('/', __dirname + '/code/dist'))
+   .use(router.routes())
    .use(router.allowedMethods());
 
 app.listen(8888);
