@@ -1,4 +1,4 @@
-function router (ctx, next) {
+function detailRoute (ctx, next) {
   ctx.render('detail.html');
 };
-module.exports = router;
+module.exports = detailRoute;

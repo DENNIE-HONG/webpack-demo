@@ -12,6 +12,7 @@
     "chalk": "^2.4.1",
     "koa": "^2.5.1",
     "koa-art-template": "^1.1.1",
+    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static2": "^0.1.8"
   },

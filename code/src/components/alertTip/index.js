@@ -4,6 +4,7 @@ export function tip (text) {
     text: text
   });
   $('body').append(insertStr);
+
 }
 export function noUsedTip () {
   console.log('这是没用的');
