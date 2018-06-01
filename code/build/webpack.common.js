@@ -45,7 +45,7 @@ module.exports = (env) => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', '../views'], {
+      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', '../views/', '../views/coms/'], {
         root: path.resolve(__dirname, '../')
       }),
       new webpack.ProvidePlugin({
@@ -53,15 +53,15 @@ module.exports = (env) => {
         jQuery: 'jquery'
       }),
       new WriteFilePlugin({
-        test: /\.art$/
+        test: /\.(art|html)$/
       }),
-      new CopyWebpackPlugin([
-        {
-          from: path.resolve(__dirname, '../src/components/**/*.art'),
-          to: path.resolve(__dirname, '../../views/coms'),
-          flatten: true
-        }
-      ])
+      // new CopyWebpackPlugin([
+      //   {
+      //     from: path.resolve(__dirname, '../src/components/**/*.art'),
+      //     to: path.resolve(__dirname, '../../views/coms'),
+      //     flatten: true
+      //   }
+      // ])
     ],
     module: {
       rules: [
@@ -124,21 +124,34 @@ module.exports = (env) => {
       ]
     }
   };
-  moreWebpackPlugin();
-  config.plugins.push(new HtmlWebpackHarddiskPlugin());
+  moreWebpackPlugin(config);
+  moreComsHtmlOutput(config);
+  // config.plugins.push(new HtmlWebpackHarddiskPlugin());
   return config;
-  function moreWebpackPlugin () {
-    let pages = glob.sync('src/views/**/*.html');
-    pages.map((filepath)=>{
-      let fileName = path.basename(filepath, '.html');
-      let conf = {
-        chunks: ['manifest', 'common', 'vendor', fileName],
-        filename: path.resolve(__dirname, `../../views/${fileName}.html`),
-        template: `./src/views/${fileName}/${fileName}.html`,
-        chunksSortMode: 'manual',
-        alwaysWriteToDisk: true
-      };
-      config.plugins.push(new HtmlWebpackPlugin(conf));
-    });
-  }
+  
+}
+function moreWebpackPlugin (config) {
+  let pages = glob.sync('src/views/**/*.html');
+  pages.map((filepath)=>{
+    let fileName = path.basename(filepath, '.html');
+    let conf = {
+      chunks: ['manifest', 'common', 'vendor', fileName],
+      filename: path.resolve(__dirname, `../../views/${fileName}.html`),
+      template: filepath,
+      chunksSortMode: 'manual'
+    };
+    config.plugins.push(new HtmlWebpackPlugin(conf));
+  });
+}
+function moreComsHtmlOutput (config) {
+  let pages = glob.sync('src/components/**/*.art');
+  pages.map((filepath)=>{
+    let fileName = path.basename(filepath, '.art');
+    let conf = {
+      filename: path.resolve(__dirname, `../../views/coms/${fileName}.art`),
+      template: filepath,
+      inject: false
+    };
+    config.plugins.push(new HtmlWebpackPlugin(conf));
+  });
 }

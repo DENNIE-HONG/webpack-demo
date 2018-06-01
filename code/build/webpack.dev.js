@@ -15,7 +15,12 @@ module.exports = env => {
       hot: true,
       inline: true,
       progress: true,
-      overlay: true
+      publicPath: '/',
+      overlay: true,
+      proxy: {
+        '*': 'http://localhost:8888'
+      },
+      openPage: 'http://localhost:7000'
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
