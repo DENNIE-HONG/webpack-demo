@@ -13,7 +13,7 @@ const indexRoute = require('./routes'); //引入路由
 const app = new Koa();
 const router = new Router();
 const log = console.log;
-
+const PORT = 8888;
 //模板设置
 render(app, {
   root: __dirname + '/views',
@@ -27,8 +27,8 @@ app.use(logger())
    .use(router.routes())
    .use(router.allowedMethods());
 
-app.listen(8888, () =>{
-  log(chalk.blue('open http://localhost:8888'));
+app.listen(PORT, () =>{
+  log(chalk.blue(`open http://localhost:${PORT}`));
 });
 
 app.on('error', (err, ctx)=> {

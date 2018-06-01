@@ -1,7 +1,7 @@
 const detailRoute = require('./detail');
 const homeRoute = require('./home');
 const route = (router) => {
-  router.get('/detail', detailRoute)
-        .get('/', homeRoute);
+  detailRoute(router);
+  homeRoute(router);
 }
 module.exports = route;
