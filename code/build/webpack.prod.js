@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const common = require('./webpack.common.js');
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = env => {
   return merge(common(env), {
     mode: 'production',
@@ -12,7 +12,7 @@ module.exports = env => {
       minimizer: [
         new UglifyJSPlugin({
           cache: true,
-          parallel: true,        
+          parallel: true,
           uglifyOptions: {
             compress: {
               drop_console: true
@@ -23,7 +23,10 @@ module.exports = env => {
           }
         }),
         new OptimizeCSSAssetsPlugin({
-          safe: true
+          safe: true,
+          autoprefixer: {
+            remove: false
+          }
         })
       ]
     },
@@ -39,7 +42,8 @@ module.exports = env => {
     ],
     output: {
       filename: 'js/[name].[chunkhash:8].js',
-      path: path.resolve(__dirname, '../dist')
+      path: path.resolve(__dirname, '../dist'),
+      publicPath: '/'
     }
   });
-}
+};
