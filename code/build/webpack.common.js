@@ -2,11 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const glob = require('glob');
+const filePosition = require('../../config/filePosition');
 module.exports = (env) => {
   let entryFiles = glob.sync('src/views/**/*.js');
   let entries = {};
@@ -45,38 +44,41 @@ module.exports = (env) => {
       }
     },
     plugins: [
-      new CleanWebpackPlugin(['dist/*.*', 'dist/js/*.*', 'dist/css/*.*', '../views/', '../views/coms/'], {
-        root: path.resolve(__dirname, '../')
+      new CleanWebpackPlugin([
+        `${filePosition.resources}/`,
+        `${filePosition.resources}/js/*.*`,
+        `${filePosition.resources}/css/`,
+        `${filePosition.resources}/fonts/`,
+        `${filePosition.views}/`,
+        `${filePosition.viewComs}/`
+      ], {
+        root: path.resolve(__dirname, '../../')
       }),
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery'
       }),
       new WriteFilePlugin({
-        test: /\.(art|html)$/
-      }),
-      // new CopyWebpackPlugin([
-      //   {
-      //     from: path.resolve(__dirname, '../src/components/**/*.art'),
-      //     to: path.resolve(__dirname, '../../views/coms'),
-      //     flatten: true
-      //   }
-      // ])
+        test: /\.html$/
+      })
     ],
     module: {
       rules: [
         {
           test: /\.js$/,
           include: path.resolve(__dirname, '../src'),
-          loader: "babel-loader",
-          exclude: /node_modules/
+          use: [
+            'babel-loader',
+            'eslint-loader'
+          ],
+          exclude: [/node_modules/, path.resolve(__dirname, '../src/lib')]
         },
         {
           test: /\.(css|scss)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            "css-loader",
-            "sass-loader"
+            'css-loader',
+            'sass-loader'
           ]
         },
         {
@@ -126,10 +128,9 @@ module.exports = (env) => {
   };
   moreWebpackPlugin(config);
   moreComsHtmlOutput(config);
-  // config.plugins.push(new HtmlWebpackHarddiskPlugin());
   return config;
-  
-}
+
+};
 function moreWebpackPlugin (config) {
   let pages = glob.sync('src/views/**/*.html');
   pages.map((filepath)=>{
@@ -143,12 +144,13 @@ function moreWebpackPlugin (config) {
     config.plugins.push(new HtmlWebpackPlugin(conf));
   });
 }
-function moreComsHtmlOutput (config) {
-  let pages = glob.sync('src/components/**/*.art');
+function moreComsHtmlOutput (config, suffixName) {
+  suffixName = suffixName || 'html';
+  let pages = glob.sync(`src/components/**/*.${suffixName}`);
   pages.map((filepath)=>{
-    let fileName = path.basename(filepath, '.art');
+    let fileName = path.basename(filepath, `.${suffixName}`);
     let conf = {
-      filename: path.resolve(__dirname, `../../views/coms/${fileName}.art`),
+      filename: path.resolve(__dirname, `../../views/coms/${fileName}.${suffixName}`),
       template: filepath,
       inject: false
     };

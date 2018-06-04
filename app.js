@@ -17,7 +17,7 @@ const PORT = 8888;
 //模板设置
 render(app, {
   root: __dirname + '/views',
-  extname: '.art',
+  extname: '.html',
   debug: process.env.NODE_ENV !== 'production'
 });
 //路由
