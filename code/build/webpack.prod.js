@@ -22,7 +22,9 @@ module.exports = env => {
             }
           }
         }),
-        new OptimizeCSSAssetsPlugin({})
+        new OptimizeCSSAssetsPlugin({
+          safe: true
+        })
       ]
     },
     plugins: [
