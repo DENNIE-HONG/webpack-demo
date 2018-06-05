@@ -6,5 +6,8 @@ module.exports = {
   txthid: {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis'
+  },
+  hid: {
+    overflow: 'hidden'
   }
 };

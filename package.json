@@ -17,6 +17,7 @@
     "koa-static2": "^0.1.8"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-eslint": "^8.2.3"
   }
 }
