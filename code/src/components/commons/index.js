@@ -1,1 +1,1 @@
-require('scss/main.css');
+require('scss/main.scss');

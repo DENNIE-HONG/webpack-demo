@@ -78,7 +78,14 @@ module.exports = (env) => {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            'postcss-loader'
+            'postcss-loader',
+            'sass-loader',
+            {
+              loader: 'sass-resources-loader',
+              options: {
+                resources: [path.resolve(__dirname, '../src/scss/vars.scss'), path.resolve(__dirname, '../src/scss/mixins.scss')]
+              }
+            }
           ]
         },
         {

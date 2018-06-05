@@ -1,5 +1,5 @@
 
-import './alertTip.css';
+import './alertTip.scss';
 export function tip (text) {
   let insertStr = require('./alertTip.art')({
     text: text
