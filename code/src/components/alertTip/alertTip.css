@@ -1,0 +1,7 @@
+
+.alert-tip {
+  background-color: var(--red1);
+  font-size: var(--fz2);
+  @apply --workbreak;
+  @apply --txthid;
+}

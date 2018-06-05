@@ -1,5 +1,5 @@
 require('coms/commons');
-import './home.scss';
+import './home.css';
 import { tip } from 'coms/alertTip';
 require('../../lib/jquery.bxslider');
 
