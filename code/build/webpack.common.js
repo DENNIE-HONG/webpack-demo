@@ -77,9 +77,24 @@ module.exports = (env) => {
           test: /\.(css|scss)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
-            'postcss-loader',
-            'sass-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: env.production ? false: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: env.production ? false: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: env.production ? false: true
+              }
+            },
             {
               loader: 'sass-resources-loader',
               options: {
