@@ -12,8 +12,11 @@ const logger = require('koa-logger')
 const indexRoute = require('./routes'); //引入路由
 const app = new Koa();
 const router = new Router();
+const axios = require('axios');
 const log = console.log;
 const PORT = 8888;
+axios.defaults.headers['Accept'] = 'application/json';
+axios.defaults.headers['Content-Type'] = 'application/json; charset=UTF-8';
 //模板设置
 render(app, {
   root: __dirname + '/views',
@@ -30,7 +33,7 @@ app.use(logger())
 app.listen(PORT, () =>{
   log(chalk.blue(`open http://localhost:${PORT}`));
 });
-
-app.on('error', (err, ctx)=> {
+//错误处理
+app.on('error', (err, ctx) => {
   log(chalk.red(err));
 });

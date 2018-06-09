@@ -5,5 +5,15 @@
     <div>我第{{id}}详情页</div>
     <i class="iconfont icon-touzi"></i>
     <button class="btn">我是按钮</button>
+    {{if detailList && detailList.length}}
+      <div class="detail-list">
+      {{each detailList}}
+        <li>
+          <div class="name">{{$value.owner_name}}</div>
+          <img src="{{$value.avatar}}" alt="" class="img-circle">
+        </li>
+      {{/each}}
+      </div>
+    {{/if}}
   </body>
 </html>
