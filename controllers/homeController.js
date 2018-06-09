@@ -4,7 +4,7 @@ const homeController = (ctx, next) => {
     data.title = 'home';
     ctx.render('home.html');
   } catch (err) {
-    console.log(err);
+    ctx.throw(err);
   }
 };
 module.exports = homeController;

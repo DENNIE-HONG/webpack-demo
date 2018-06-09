@@ -15,21 +15,31 @@ const router = new Router();
 const axios = require('axios');
 const log = console.log;
 const PORT = 8888;
+
+require('dnscache')({
+  "enable" : true
+});
 axios.defaults.headers['Accept'] = 'application/json';
 axios.defaults.headers['Content-Type'] = 'application/json; charset=UTF-8';
+axios.defaults.headers['Accept-Encoding'] = 'gzip, deflate';
 //模板设置
 render(app, {
   root: __dirname + '/views',
-  extname: '.html',
-  debug: process.env.NODE_ENV !== 'production'
+  extname: '.html'
 });
 //路由
 indexRoute(router);
+// 404
+
 app.use(logger())
    .use(serve('/', __dirname + '/code/dist'))
    .use(router.routes())
-   .use(router.allowedMethods());
+   .use(router.allowedMethods())
 
+// app.use(async (ctx) => {
+//   ctx.status = 404;
+//   ctx.response.body = 'Page not found!';
+// });
 app.listen(PORT, () =>{
   log(chalk.blue(`open http://localhost:${PORT}`));
 });
