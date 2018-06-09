@@ -1,4 +1,4 @@
-function homeController (ctx, next){
+const homeController = (ctx, next) => {
   try {
     let data = {};
     data.title = 'home';

@@ -2,14 +2,26 @@ body {
   font-size: 12px;
 }
 .bxslider {
-  width: 1000%;
+  width: 500px;
   height: 400px;
   li {
+    position: relative;
     width: 100%;
     height: 100%;
   }
   img {
     width: 100%;
     min-height: 100%;
+  }
+  &-txt {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0,0,0, 0.5);
+    color: white;
+    line-height: 100px;
+    font-size: nth($fz, 3);
+    text-align: center;
   }
 }

@@ -1,5 +1,5 @@
 require('../../components/commons');
-import './detail.css';
+import './detail.scss';
 import { tip } from '../../components/alertTip';
 
 $(function () {

@@ -7,7 +7,8 @@ tip('这是有用的');
 
 $(document).ready(function () {
   $('.bxslider').bxSlider({
-    pager: false,
+    slideWidth: 500,
+    controls: false,
     auto: true
   });
 });
