@@ -4,6 +4,7 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = env => {
+  env.production = env.production !== 'false';
   return merge(common(env), {
     mode: 'development', 
     devtool: 'inline-source-map',

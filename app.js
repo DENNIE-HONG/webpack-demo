@@ -27,19 +27,28 @@ render(app, {
   root: __dirname + '/views',
   extname: '.html'
 });
+
 //路由
 indexRoute(router);
-// 404
 
 app.use(logger())
-   .use(serve('/', __dirname + '/code/dist'))
+   .use(serve('/', path.join(__dirname, '/code/dist')))
    .use(router.routes())
    .use(router.allowedMethods())
+   .use(async (ctx, next) => {
+    try {
+      await next();
+      // 处理404
+      if (ctx.status === 404) {
+        ctx.body = "Hello 404 error!";
+      }
+    } catch (err) {
+      // 处理500
+      ctx.response.status = 500;
+      ctx.throw(err);
+    }
+  });
 
-// app.use(async (ctx) => {
-//   ctx.status = 404;
-//   ctx.response.body = 'Page not found!';
-// });
 app.listen(PORT, () =>{
   log(chalk.blue(`open http://localhost:${PORT}`));
 });

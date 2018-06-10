@@ -11,4 +11,5 @@ $(document).ready(function () {
     controls: false,
     auto: true
   });
+  console.log($('.userid').text());
 });

@@ -148,12 +148,17 @@ module.exports = (env) => {
       ]
     }
   };
-  moreWebpackPlugin(config);
-  moreComsHtmlOutput(config);
+  moreWebpackPlugin(config, env.production);
+  moreComsHtmlOutput(config, 'html', env.production);
   return config;
 
 };
-function moreWebpackPlugin (config) {
+/**
+ * 生成html文件
+ * @param {Object}  webpack配置对象
+ * @param {Boolean} 是否是生产环境
+*/
+function moreWebpackPlugin (config, isProd) {
   let pages = glob.sync('src/views/**/*.html');
   pages.map((filepath)=>{
     let fileName = path.basename(filepath, '.html');
@@ -163,10 +168,19 @@ function moreWebpackPlugin (config) {
       template: filepath,
       chunksSortMode: 'manual'
     };
+    if (isProd) {
+      conf = Object.assign(conf, {
+        minify: {
+          removeComments: true,       //去除注释
+          collapseWhitespace: true,   //去除空格
+          minifyJS: true              //压缩内联script
+        }
+      })    
+    }
     config.plugins.push(new HtmlWebpackPlugin(conf));
   });
 }
-function moreComsHtmlOutput (config, suffixName) {
+function moreComsHtmlOutput (config, suffixName, isProd) {
   suffixName = suffixName || 'html';
   let pages = glob.sync(`src/components/**/*.${suffixName}`);
   pages.map((filepath)=>{
@@ -176,6 +190,13 @@ function moreComsHtmlOutput (config, suffixName) {
       template: filepath,
       inject: false
     };
+    isProd && (conf = Object.assign(conf, {
+      minify: {
+        removeComments: true,       //去除注释
+        collapseWhitespace: true,   //去除空格
+        minifyJS: true              //压缩内联script
+      }
+    }));
     config.plugins.push(new HtmlWebpackPlugin(conf));
   });
 }

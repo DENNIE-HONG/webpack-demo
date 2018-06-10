@@ -7,12 +7,12 @@
     <button class="btn">我是按钮</button>
     {{if detailList && detailList.length}}
       <div class="detail-list">
-      {{each detailList}}
-        <li>
-          <div class="name">{{$value.owner_name}}</div>
-          <img src="{{$value.avatar}}" alt="" class="img-circle">
-        </li>
-      {{/each}}
+        {{each detailList}}
+          <li>
+            <div class="name">{{$value.owner_name}}</div>
+            <img src="{{$value.avatar}}" class="img-circle"/>
+          </li>
+        {{/each}}
       </div>
     {{/if}}
   </body>
