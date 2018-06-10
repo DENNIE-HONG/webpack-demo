@@ -6,7 +6,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const render = require('koa-art-template');
 const path = require('path');
-const chalk = require('chalk');
+const colors = require('colors');
 const serve = require('koa-static2')
 const logger = require('koa-logger')
 const indexRoute = require('./routes'); //引入路由
@@ -50,9 +50,9 @@ app.use(logger())
   });
 
 app.listen(PORT, () =>{
-  log(chalk.blue(`open http://localhost:${PORT}`));
+  log(colors.green(`open http://localhost:${PORT}`));
 });
 //错误处理
 app.on('error', (err, ctx) => {
-  log(chalk.red(err));
+  log(colors.red(err));
 });

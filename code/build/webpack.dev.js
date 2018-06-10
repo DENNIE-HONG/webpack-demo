@@ -21,7 +21,8 @@ module.exports = env => {
       proxy: {
         '*': 'http://localhost:8888'
       },
-      openPage: 'http://localhost:7000'
+      openPage: 'http://localhost:7000',
+      stats: 'errors-only'
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
