@@ -22,7 +22,7 @@ module.exports = (env) => {
       }
     },
     optimization: {
-      splitChunks : {
+      splitChunks: {
         cacheGroups: {
           default: false,
           common: {
@@ -175,7 +175,7 @@ function moreWebpackPlugin (config, isProd) {
           collapseWhitespace: true,   //去除空格
           minifyJS: true              //压缩内联script
         }
-      })    
+      });    
     }
     config.plugins.push(new HtmlWebpackPlugin(conf));
   });

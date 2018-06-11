@@ -10,19 +10,21 @@ module.exports = env => {
     devtool: 'inline-source-map',
     devServer: {
       contentBase: path.resolve(__dirname, '../dist'),
-      host: 'localhost',
+      clientLogLevel: 'warning',
       port: 7000,
       compress: true,
       hot: true,
-      inline: true,
-      progress: true,
       publicPath: '/',
+      noInfo: true,
       overlay: true,
       proxy: {
         '*': 'http://localhost:8888'
       },
       openPage: 'http://localhost:7000',
-      stats: 'errors-only'
+      public: 'http://localhost:7000',
+      stats: {
+        colors: true
+      }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
