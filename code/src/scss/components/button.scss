@@ -1,8 +1,10 @@
 .btn {
   display: inline-block;
   padding: 9px 20px;
-  border: 1px solid var(--gray1);
-  font-size: var(--fz2);
+  border: 1px solid nth($fgray, 1);
+  font-size: nth($fz, 2);
   line-height: 1;
   border-radius: 4px;
+  background-color: nth($fblack, 3);
+  color: nth($fgray, 1);
 }

@@ -10,6 +10,7 @@ const colors = require('colors');
 const serve = require('koa-static2')
 const logger = require('koa-logger')
 const indexRoute = require('./routes'); //引入路由
+const helmet = require("koa-helmet");
 const app = new Koa();
 const router = new Router();
 const axios = require('axios');
@@ -33,6 +34,10 @@ indexRoute(router);
 
 app.use(logger())
    .use(serve('/', path.join(__dirname, '/code/dist')))
+   .use(helmet({
+    dnsPrefetchControl: false,
+    hsts: false
+   }))
    .use(router.routes())
    .use(router.allowedMethods())
    .use(async (ctx, next) => {
