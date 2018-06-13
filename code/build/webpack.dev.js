@@ -3,25 +3,24 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const config = require('../../config/filePosition');
 module.exports = env => {
   env.production = env.production !== 'false';
   return merge(common(env), {
-    mode: 'development', 
+    mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-      contentBase: path.resolve(__dirname, '../dist'),
-      clientLogLevel: 'warning',
+      contentBase: config.views,
+      watchContentBase: true,
       port: 7000,
       compress: true,
       hot: true,
       publicPath: '/',
-      noInfo: true,
       overlay: true,
       proxy: {
         '*': 'http://localhost:8888'
       },
       openPage: 'http://localhost:7000',
-      public: 'http://localhost:7000',
       stats: {
         colors: true
       }
