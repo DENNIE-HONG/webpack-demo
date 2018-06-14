@@ -11,6 +11,7 @@ const serve = require('koa-static2')
 const logger = require('koa-logger')
 const indexRoute = require('./routes'); //引入路由
 const helmet = require("koa-helmet");
+const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 const router = new Router();
 const axios = require('axios');
@@ -38,6 +39,7 @@ app.use(logger())
     dnsPrefetchControl: false,
     hsts: false
    }))
+   .use(bodyParser())
    .use(router.routes())
    .use(router.allowedMethods())
    .use(async (ctx, next) => {
