@@ -9,6 +9,11 @@ $(function () {
       for (let item of formData) {
         sendData[item.name] = item.value;
       }
+      let reg = /[u4E00-u9FA5]/g;
+      if (!reg.test(sendData.name)) {
+        tip('不支持中文名字');
+        return;
+      }
       let response = await postEvent(POST_URL, sendData);
       response && tip('发送成功');
     } catch (err) {

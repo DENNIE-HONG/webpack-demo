@@ -40,6 +40,18 @@ app.use(logger())
     hsts: false
    }))
    .use(bodyParser())
+   .use( async ( ctx, next) => {
+    if ( ctx.url === '/send' && !ctx.cookies.get('name')) {
+      ctx.cookies.set('name', '', {
+        domain: 'localhost',  // 写cookie所在的域名
+        path: '/send',       // 写cookie所在的路径
+        maxAge: 10 * 60 * 1000, // cookie有效时长         
+        httpOnly: false,  // 是否只用于http请求中获取
+        overwrite: false  // 是否允许重写
+      })    
+    }
+    next();
+  })
    .use(router.routes())
    .use(router.allowedMethods())
    .use(async (ctx, next) => {
