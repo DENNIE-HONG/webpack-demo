@@ -16,6 +16,7 @@ module.exports = (env) => {
   let config = {
     entry: entries,
     resolve: {
+      extensions: ['.js'],
       alias: {
         scss: path.resolve(__dirname, '../src/scss'),
         coms: path.resolve(__dirname, '../src/components')

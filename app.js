@@ -42,7 +42,7 @@ app.use(logger())
    }))
    .use(bodyParser())
    .use(jsonp())
-   .use( async ( ctx, next) => {
+   .use(async ( ctx, next) => {
     if ( ctx.url === '/send' && !ctx.cookies.get('name')) {
       ctx.cookies.set('name', '', {
         domain: 'localhost',  // 写cookie所在的域名
@@ -52,7 +52,7 @@ app.use(logger())
         overwrite: false  // 是否允许重写
       })    
     }
-    next();
+    await next();
   })
    .use(router.routes())
    .use(router.allowedMethods())
@@ -62,7 +62,7 @@ app.use(logger())
       // 处理404
       if (ctx.status === 404) {
         ctx.body = "Hello 404 error!";
-      }
+      } 
     } catch (err) {
       // 处理500
       ctx.response.status = 500;

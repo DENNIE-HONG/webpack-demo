@@ -1,4 +1,4 @@
-exports.postForm = (ctx) => {
+exports.postForm = (ctx, next) => {
   try {
     let postData = {},
       returnData = {};
@@ -30,7 +30,7 @@ exports.postForm = (ctx) => {
     ctx.throw(err);
   }
 };
-exports.sendJsonp = (ctx) => {
+exports.sendJsonp = (ctx, next) => {
   try {
     let returnData = {};
     if (!ctx.request.query.address) {

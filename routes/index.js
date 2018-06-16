@@ -5,7 +5,7 @@ const apiRoute = require('./api');
 const route = (router) => {
   detailRoute(router);
   homeRoute(router);
-  apiRoute(router);
   sendRoute(router);
+  apiRoute(router);
 }
 module.exports = route;

@@ -1,5 +1,5 @@
 const detailModel = require('../models/detailModel');
-async function detailController (ctx, next) {
+const detailController =  async (ctx) => {
   try {
     let data = {};
     data.title = 'detail';
@@ -7,6 +7,7 @@ async function detailController (ctx, next) {
     let detailList = await detailModel.detailList();
     data.detailList = detailList.data.collections;
     ctx.render('detail.html', data);
+    
   } catch (err) {
     ctx.throw(err);
   }
