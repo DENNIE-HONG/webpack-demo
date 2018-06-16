@@ -3,11 +3,16 @@
   <% include('./coms/header')%>
   <body>
     <div>测试post请求</div>
-    <form name="send">
+    <form id="send">
       <input name="name" placeholder="请输入名字" value="{{userName}}"/>
       <input name="mobile" placeholder="请输入电话"/>
-      <div class="btn">提交</div>
+      <div class="btn" data-action="send-post">提交</div>
       <div class="txt-red"></div>
+    </form>
+    <div>测试jsonp请求</div>
+    <form class="sendjsonp">
+      <input name="address" placeholder="请输入地址"/>
+      <div class="btn" data-action="send-address">提交</div>
     </form>
   </body>
 </html>

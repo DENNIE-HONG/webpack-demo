@@ -1,11 +1,13 @@
-exports.postForm = (ctx, next) => {
+exports.postForm = (ctx) => {
   try {
-    let postData = {};
+    let postData = {},
+      returnData = {};
     if (ctx.request.body.name == '') {
-      ctx.body = {
+      returnData = {
         code: 201,
         msg: '请输入名字'
       };
+      ctx.body = returnData;
       return;
     } 
     if (ctx.request.body.mobile == '') {
@@ -28,3 +30,22 @@ exports.postForm = (ctx, next) => {
     ctx.throw(err);
   }
 };
+exports.sendJsonp = (ctx) => {
+  try {
+    let returnData = {};
+    if (!ctx.request.query.address) {
+      returnData = {
+        code: 201,
+        msg: '请输入地址'
+      };
+    } else {
+      returnData = {
+        code: 200,
+        msg: ''
+      };
+    }
+    ctx.body = returnData;
+  } catch (err) {
+    ctx.throw(err);
+  }
+}

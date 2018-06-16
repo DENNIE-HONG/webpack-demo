@@ -12,6 +12,7 @@ const logger = require('koa-logger')
 const indexRoute = require('./routes'); //引入路由
 const helmet = require("koa-helmet");
 const bodyParser = require('koa-bodyparser');
+const jsonp = require('koa-jsonp');
 const app = new Koa();
 const router = new Router();
 const axios = require('axios');
@@ -40,6 +41,7 @@ app.use(logger())
     hsts: false
    }))
    .use(bodyParser())
+   .use(jsonp())
    .use( async ( ctx, next) => {
     if ( ctx.url === '/send' && !ctx.cookies.get('name')) {
       ctx.cookies.set('name', '', {
