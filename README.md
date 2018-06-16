@@ -1,3 +1,3 @@
 # webpack-demo
 webpack4 打包
-koa 搭建web项目
+koa2 搭建web项目
