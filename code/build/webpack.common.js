@@ -166,16 +166,17 @@ function moreWebpackPlugin (config, isProd) {
       chunks: ['manifest', 'common', 'vendor', fileName],
       filename: path.resolve(__dirname, `../../views/${fileName}.html`),
       template: filepath,
-      chunksSortMode: 'manual'
+      chunksSortMode: 'manual',
+      favicon: path.resolve(__dirname, '../../favicon.ico')
     };
     if (isProd) {
       conf = Object.assign(conf, {
         minify: {
-          removeComments: true,       //去除注释
-          collapseWhitespace: true,   //去除空格
-          minifyJS: true              //压缩内联script
+          removeComments: true, //去除注释
+          collapseWhitespace: true, //去除空格
+          minifyJS: true //压缩内联script
         }
-      });    
+      });
     }
     config.plugins.push(new HtmlWebpackPlugin(conf));
   });
@@ -192,9 +193,9 @@ function moreComsHtmlOutput (config, suffixName, isProd) {
     };
     isProd && (conf = Object.assign(conf, {
       minify: {
-        removeComments: true,       //去除注释
-        collapseWhitespace: true,   //去除空格
-        minifyJS: true              //压缩内联script
+        removeComments: true, //去除注释
+        collapseWhitespace: true, //去除空格
+        minifyJS: true //压缩内联script
       }
     }));
     config.plugins.push(new HtmlWebpackPlugin(conf));
