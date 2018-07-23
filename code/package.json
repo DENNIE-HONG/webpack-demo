@@ -1,7 +1,11 @@
 {
   "name": "webpack-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack-demo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DENNIE-HONG/webpack-demo.git"
+  },
   "main": "index.js",
   "sideEffects": [
     "*.scss",

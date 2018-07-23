@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "webpack4-demo",
   "main": "app.js",
-  "repository": "DENNIE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DENNIE-HONG/webpack-demo.git"
+  },
   "scripts": {
     "start": "node app.js"
   },
