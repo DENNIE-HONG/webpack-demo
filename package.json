@@ -2,6 +2,7 @@
   "name": "webpack-demo",
   "version": "1.0.0",
   "description": "webpack4-demo",
+  "license": "",
   "main": "app.js",
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
     "koa-jsonp": "^2.0.2",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
-    "koa-static2": "^0.1.8"
+    "koa-static2": "^0.1.8",
+    "spdy": "^3.4.7"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",

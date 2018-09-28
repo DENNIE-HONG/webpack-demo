@@ -16,6 +16,8 @@ const jsonp = require('koa-jsonp');
 const app = new Koa();
 const router = new Router();
 const axios = require('axios');
+const spdy = require('spdy');
+const fs = require('fs');
 const log = console.log;
 const PORT = 8888;
 
@@ -70,10 +72,21 @@ app.use(logger())
     }
   });
 
-app.listen(PORT, () =>{
-  log(colors.green(`open http://localhost:${PORT}`));
-});
-//错误处理
-app.on('error', (err, ctx) => {
-  log(colors.red(err));
-});
+const options = {
+  key: fs.readFileSync(__dirname + '/server.key'),
+  cert: fs.readFileSync(__dirname + '/server.crt')
+};
+// app.listen(PORT, () =>{
+//   log(colors.green(`open http://localhost:${PORT}`));
+// });
+// //错误处理
+// app.on('error', (err, ctx) => {
+//   log(colors.red(err));
+// });
+spdy.createServer(options, app.callback())
+    .listen(PORT, ()=>{
+      log(colors.green(`open http://localhost:${PORT}`));
+    })
+    .on('error', (err, ctx) => {
+      log(colors.red(err));
+    });
